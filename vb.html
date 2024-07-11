@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Score Counter</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body, html {
+            height: 100%;
+            width: 100%;
+            display: flex;
+        }
+        .container {
+            display: flex;
+            width: 100%;
+            height: 100%;
+        }
+        .half {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+        .left {
+            background-color: red;
+        }
+        .right {
+            background-color: blue;
+        }
+        .score {
+            font-size: 100px;
+            color: white;
+            user-select: none;
+        }
+        .input-container {
+            position: absolute;
+            bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .input-container input {
+            padding: 10px;
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+        .input-container button {
+            padding: 10px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+        .middle-buttons {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .middle-buttons button {
+            padding: 10px;
+            font-size: 20px;
+            cursor: pointer;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="half left" onclick="increment('left')">
+            <div class="score" id="left-score">0</div>
+            <div class="input-container">
+                <input type="number" id="left-input" placeholder="Set score">
+                <button onclick="setScore(event, 'left')">Enter</button>
+            </div>
+        </div>
+        <div class="half right" onclick="increment('right')">
+            <div class="score" id="right-score">0</div>
+            <div class="input-container">
+                <input type="number" id="right-input" placeholder="Set score">
+                <button onclick="setScore(event, 'right')">Enter</button>
+            </div>
+        </div>
+        <div class="middle-buttons">
+            <button onclick="undo()">Undo</button>
+            <button onclick="reset()">Reset</button>
+        </div>
+    </div>
+
+    <script>
+        let leftScore = 0;
+        let rightScore = 0;
+        let lastClicked = null;
+
+        function increment(side) {
+            if (side === 'left') {
+                leftScore++;
+                document.getElementById('left-score').textContent = leftScore;
+            } else if (side === 'right') {
+                rightScore++;
+                document.getElementById('right-score').textContent = rightScore;
+            }
+            lastClicked = side;
+        }
+
+        function undo() {
+            if (lastClicked === 'left' && leftScore > 0) {
+                leftScore--;
+                document.getElementById('left-score').textContent = leftScore;
+            } else if (lastClicked === 'right' && rightScore > 0) {
+                rightScore--;
+                document.getElementById('right-score').textContent = rightScore;
+            }
+        }
+
+        function reset() {
+            leftScore = 0;
+            rightScore = 0;
+            document.getElementById('left-score').textContent = leftScore;
+            document.getElementById('right-score').textContent = rightScore;
+        }
+
+        function setScore(event, side) {
+            event.stopPropagation();
+            if (side === 'left') {
+                leftScore = parseInt(document.getElementById('left-input').value) || 0;
+                document.getElementById('left-score').textContent = leftScore;
+            } else if (side === 'right') {
+                rightScore = parseInt(document.getElementById('right-input').value) || 0;
+                document.getElementById('right-score').textContent = rightScore;
+            }
+        }
+
+        // Prevent input events from propagating to the parent div
+        document.querySelectorAll('.input-container input').forEach(input => {
+            input.addEventListener('click', event => event.stopPropagation());
+        });
+
+        document.querySelectorAll('.input-container button').forEach(button => {
+            button.addEventListener('click', event => event.stopPropagation());
+        });
+    </script>
+</body>
+</html>
