@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
+<!-- saved from url=(0039)file:///C:/Users/aquaa/OneDrive/vb.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Score Counter</title>
     <style>
@@ -13,35 +13,62 @@
         body, html {
             height: 100%;
             width: 100%;
-            display: flex;
+            overflow-x: hidden;
         }
         .container {
             display: flex;
             width: 100%;
             height: 100%;
         }
-        .half {
+        .column {
             flex: 1;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            position: relative;
         }
         .left {
             background-color: red;
+            height: 100vh;
         }
         .right {
             background-color: blue;
+            height: 100vh;
         }
         .score {
             font-size: 100px;
             color: white;
             user-select: none;
         }
+        .middle {
+            width: 100px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: white;
+        }
+        .middle-buttons {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+        .middle-buttons button {
+            padding: 10px;
+            font-size: 20px;
+            cursor: pointer;
+            margin: 10px;
+        }
+        .input-column {
+            width: 100%;
+            background-color: white;
+            display: flex;
+            justify-content: space-around;
+            padding: 20px 0;
+        }
         .input-container {
-            position: absolute;
-            bottom: 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -56,42 +83,31 @@
             font-size: 20px;
             cursor: pointer;
         }
-        .middle-buttons {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .middle-buttons button {
-            padding: 10px;
-            font-size: 20px;
-            cursor: pointer;
-            margin: 10px;
-        }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="half left" onclick="increment('left')">
+        <div class="column left" onclick="increment(&#39;left&#39;)">
             <div class="score" id="left-score">0</div>
-            <div class="input-container">
-                <input type="number" id="left-input" placeholder="Set score">
-                <button onclick="setScore(event, 'left')">Enter</button>
+        </div>
+        <div class="middle">
+            <div class="middle-buttons">
+                <button onclick="undo()">Undo</button>
+                <button onclick="reset()">Reset</button>
             </div>
         </div>
-        <div class="half right" onclick="increment('right')">
+        <div class="column right" onclick="increment(&#39;right&#39;)">
             <div class="score" id="right-score">0</div>
-            <div class="input-container">
-                <input type="number" id="right-input" placeholder="Set score">
-                <button onclick="setScore(event, 'right')">Enter</button>
-            </div>
         </div>
-        <div class="middle-buttons">
-            <button onclick="undo()">Undo</button>
-            <button onclick="reset()">Reset</button>
+    </div>
+    <div class="input-column">
+        <div class="input-container">
+            <input type="number" id="left-input" placeholder="Set score">
+            <button onclick="setScore(event, &#39;left&#39;)">Enter</button>
+        </div>
+        <div class="input-container">
+            <input type="number" id="right-input" placeholder="Set score">
+            <button onclick="setScore(event, &#39;right&#39;)">Enter</button>
         </div>
     </div>
 
@@ -148,5 +164,6 @@
             button.addEventListener('click', event => event.stopPropagation());
         });
     </script>
-</body>
-</html>
+
+
+</body></html>
