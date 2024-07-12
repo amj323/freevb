@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<!-- saved from url=(0039)file:///C:/Users/aquaa/OneDrive/vb.html -->
-<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Score Counter</title>
     <style>
@@ -83,11 +83,25 @@
             font-size: 20px;
             cursor: pointer;
         }
+
+        @media (max-width: 600px) {
+            .container {
+                flex-direction: column;
+            }
+            .left, .right {
+                width: 100%;
+                height: 50vh;
+            }
+            .middle {
+                width: 100%;
+                height: auto;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="column left" onclick="increment(&#39;left&#39;)">
+        <div class="column left" onclick="increment('left')">
             <div class="score" id="left-score">0</div>
         </div>
         <div class="middle">
@@ -96,18 +110,18 @@
                 <button onclick="reset()">Reset</button>
             </div>
         </div>
-        <div class="column right" onclick="increment(&#39;right&#39;)">
+        <div class="column right" onclick="increment('right')">
             <div class="score" id="right-score">0</div>
         </div>
     </div>
     <div class="input-column">
         <div class="input-container">
             <input type="number" id="left-input" placeholder="Set score">
-            <button onclick="setScore(event, &#39;left&#39;)">Enter</button>
+            <button onclick="setScore(event, 'left')">Enter</button>
         </div>
         <div class="input-container">
             <input type="number" id="right-input" placeholder="Set score">
-            <button onclick="setScore(event, &#39;right&#39;)">Enter</button>
+            <button onclick="setScore(event, 'right')">Enter</button>
         </div>
     </div>
 
@@ -164,6 +178,5 @@
             button.addEventListener('click', event => event.stopPropagation());
         });
     </script>
-
-
-</body></html>
+</body>
+</html>
